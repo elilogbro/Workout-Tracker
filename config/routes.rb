@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :exercises, only: [:index, :create]
+  resources :exercise_sets, only: [:index, :create, :destroy, :update]
+  resources :routines
+  resources :users, only: [:show, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

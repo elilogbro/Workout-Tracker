@@ -1,24 +1,29 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Login from './Login'
+import ExerciseForm from './ExerciseForm'
+import RoutineHistory from './RoutineHistory'
+import NewUserForm from './NewUserForm'
+import Links from './Links'
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
 
   return (
     <BrowserRouter>
       <div className="App">
+        <Links />
         <Switch>
-          <Route path="/testing">
-            <h1>Test Route</h1>
-          </Route>
           <Route path="/">
-            <h1>Page Count: {count}</h1>
+            <Login />
+          </Route>
+          <Route path="/exercise_form">
+            <ExerciseForm />
+          </Route>
+          <Route path="/history">
+            <RoutineHistory />
+          </Route>
+          <Route path="/user_form">
+            <NewUserForm />
           </Route>
         </Switch>
       </div>

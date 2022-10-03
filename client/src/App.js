@@ -13,16 +13,16 @@ function App() {
       <div className="App">
         <Links />
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Login />
           </Route>
-          <Route path="/exercise_form">
+          <Route path="/exercise-form">
             <ExerciseForm />
           </Route>
           <Route path="/history">
             <RoutineHistory />
           </Route>
-          <Route path="/user_form">
+          <Route path="/user-form">
             <NewUserForm />
           </Route>
         </Switch>

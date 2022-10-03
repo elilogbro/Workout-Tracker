@@ -5,10 +5,10 @@ function Links() {
     return (
         <nav className="navbar">
             <Link to="/">Login</Link>
-            <Link to="/exercise_form">Create New Exercise</Link>
+            <Link to="/exercise-form">Create New Exercise</Link>
             <Link to="/history">Workout History</Link>
-            <Link to="/user_form">Sign Up</Link>
-      </nav>
+            <Link to="/user-form">Sign Up</Link>
+        </nav>
     )
 }
 

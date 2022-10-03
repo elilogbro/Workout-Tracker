@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import Login from './Login'
 import ExerciseForm from './ExerciseForm'
 import RoutineHistory from './RoutineHistory'
@@ -8,6 +8,7 @@ import Links from './Links'
 
 function App() {
 
+  const history = useHistory();
   const [user, setUser] = useState({})
   const [formData, setFormData] = useState({
     username: "",
@@ -41,10 +42,10 @@ function App() {
         password: ""
     })
 
+    history.push('/history')
   }
 
   return (
-    <BrowserRouter>
       <div className="App">
         <Links
           user={user}
@@ -66,11 +67,12 @@ function App() {
             <RoutineHistory />
           </Route>
           <Route path="/user-form">
-            <NewUserForm />
+            <NewUserForm
+              setUser={setUser}
+              />
           </Route>
         </Switch>
       </div>
-    </BrowserRouter>
   );
 }
 

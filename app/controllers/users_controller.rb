@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :invalid_record_error
     rescue_from ActiveRecord::RecordNotFound, with: :not_found_error
 
-    # skip_before_action :authenticated_user, only: [:create]
+    skip_before_action :authorize, only: [:create]
     
     def show
         render json: @current_user

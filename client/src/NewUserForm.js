@@ -13,6 +13,7 @@ function NewUserForm() {
                 <label>Password</label>
                 <input type="text" name="name" />
             </form>
+            <button type="submit">Submit</button>
         </div>
     )
 }

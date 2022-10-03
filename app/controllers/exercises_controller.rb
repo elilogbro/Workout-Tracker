@@ -1,5 +1,6 @@
 class ExercisesController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :invalid_record_error
+    skip_before_action :authorize 
 
     def index
         render json: Exercise.all, status: :ok

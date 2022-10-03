@@ -1,13 +1,16 @@
 import React from 'react';
 
-function Login() {
+function Login({formData, handleLogin, handleFormChange}) {
+
+
     return (
         <div>
-            <form>
+            <form onSubmit={handleLogin}>
                 <label>Username</label>
-                <input type="text" name="name" />
+                <input type="text" name="username" value={formData.username} onChange={handleFormChange}/>
                 <label>Password</label>
-                <input type="text" name="name" />
+                <input type="password" name="password" value={formData.password} onChange={handleFormChange}/>
+                <button type="submit">Submit</button>
             </form>
         </div>
     )

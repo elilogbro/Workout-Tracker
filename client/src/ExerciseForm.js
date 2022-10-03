@@ -11,6 +11,7 @@ function ExerciseForm() {
                 <label>Image URL</label>
                 <input type="text" name="name" />
             </form>
+            <button type="submit">Submit</button>
         </div>
     )
 }

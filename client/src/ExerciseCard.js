@@ -17,9 +17,12 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     max-width: 14%;
-    height: 100%;
     text-align: center;
-    `;
+    margin: 10px;
+    border: 1px solid;
+    padding: 4px;
+    font-size: 16px;
+`;
 
 const Image = styled.img`
     max-width: 100%;

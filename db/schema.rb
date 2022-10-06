@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_130840) do
     t.integer "exercise_id"
     t.integer "weight"
     t.integer "reps"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

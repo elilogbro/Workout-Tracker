@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {NavbarContainer, NavbarLinkContainer,NavbarLink} from './NavStyle';
 
 function Links({user, setUser}) {
 
@@ -12,20 +12,30 @@ function Links({user, setUser}) {
     }
     
     return (
-        <nav className="navbar">
+        <NavbarContainer>
             { Object.keys(user).length === 0 ?
-                <div>
-                    <Link to="/">Login</Link>
-                    <Link to="/user-form">Sign Up</Link>
-                </div>
+                <NavbarLinkContainer>
+                    <NavbarLink to="/">
+                        Login
+                    </NavbarLink>
+                    <NavbarLink to="/user-form">
+                        Sign Up
+                    </NavbarLink>
+                </NavbarLinkContainer>
                 :
-                    <div>
-                        <Link onClick={handleLogout} to="/">Logout</Link>
-                        <Link to="/exercise-form">Create New Exercise</Link>
-                        <Link to="/history">Workout History</Link>
-                    </div>
+                    <NavbarLinkContainer>
+                        <NavbarLink onClick={handleLogout} to="/">
+                            Logout
+                        </NavbarLink>
+                        <NavbarLink to="/exercise-form">
+                            Create New Exercise
+                        </NavbarLink>
+                        <NavbarLink to="/history">
+                            Workout History
+                        </NavbarLink>
+                    </NavbarLinkContainer>
                 }
-        </nav>
+        </NavbarContainer>
     )
 }
 

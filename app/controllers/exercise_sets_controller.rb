@@ -27,7 +27,7 @@ class ExerciseSetsController < ApplicationController
     private
 
     def exercise_set_params
-        params.permit(:routine_id, :exercise_id, :weight, :reps)
+        params.permit(:routine_id, :exercise_id, :weight, :reps, :user_id)
     end
 
     def invalid_record_error(error)

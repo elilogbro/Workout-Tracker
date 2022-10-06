@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :exercises, only: [:index, :create]
+  resources :exercises, only: [:index, :create, :show]
   resources :exercise_sets, only: [:index, :create, :destroy, :update]
   resources :routines
   post "/signup", to: "users#create"

@@ -5,6 +5,7 @@ class CreateExerciseSets < ActiveRecord::Migration[7.0]
       t.integer :exercise_id
       t.integer :weight
       t.integer :reps
+      t.integer :user_id
 
       t.timestamps
     end

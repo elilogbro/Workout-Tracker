@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import SetCard from './SetCard'
 import styled from 'styled-components'
 
-function RoutineExerciseCard({exercise, exerciseSets, setExerciseSets, currentRoutine, isInEdit, user, userSets, currentExercise, setCurrentExercise, reps, setReps, weight, setWeight}) {
+function RoutineExerciseCard({exercise, exerciseSets, setExerciseSets, currentRoutine, isInEdit, user, userSets, currentExercise, setCurrentExercise, reps, setReps, weight, setWeight, routineSets, setRoutineSets}) {
 
     const handleUpdatedSet = (updatedSet) => {
        const updateSets = exerciseSets.map(set => set.id === updatedSet.id ? updatedSet : set)
@@ -33,29 +33,34 @@ function RoutineExerciseCard({exercise, exerciseSets, setExerciseSets, currentRo
         .then(res => res.json())
         .then(currentExercise => {
             setCurrentExercise(currentExercise)
-            setExerciseSets(currentExercise.ordered_exercise_sets.filter(set => set.routine_id === currentRoutine.id && set.exercise_id === currentExercise.id))
+            setExerciseSets(routineSets.filter(set => set.exercise_id === currentExercise.id))
         })
-    }, [])
-    
+    }, [exercise.id, routineSets, setCurrentExercise, setExerciseSets])
+
+    if (!currentExercise || !exerciseSets) {
+        return (
+            <p>Loading...</p>
+        )
+    }
+
     return (
         <Wrapper>
-            <p>{exercise.name}</p>
-            {!isInEdit && <button onClick={handleOnClick}>Add set</button>}
-            {/* <form> */}
-                {currentExercise && exerciseSets.map(set => (
-                <SetCard
-                    set={set}
-                    key={set.id}
-                    handleUpdatedSet={handleUpdatedSet}
-                    isInEdit={isInEdit}
-                    currentRoutine={currentRoutine}
-                    user={user}
-                    weight={weight}
-                    reps={reps}
-                    setWeight={setWeight}
-                    setReps={setReps}
-                    />))}
-            {/* </form> */}
+                <p>{exercise.name}</p>
+                {!isInEdit && <button onClick={handleOnClick}>Add set</button>}
+
+                    {currentExercise && exerciseSets.map(set => (
+                    <SetCard
+                        set={set}
+                        key={set.id}
+                        handleUpdatedSet={handleUpdatedSet}
+                        isInEdit={isInEdit}
+                        currentRoutine={currentRoutine}
+                        user={user}
+                        weight={weight}
+                        reps={reps}
+                        setWeight={setWeight}
+                        setReps={setReps}
+                        />))}
         </Wrapper>
     )
 }

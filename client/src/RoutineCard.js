@@ -3,7 +3,7 @@ import RoutineExerciseCard from './RoutineExerciseCard';
 import styled from 'styled-components'
 
 
-function RoutineCard({setCurrentRoutine, routineExercises, currentRoutine, handleUpdatedName, isInEdit, user, userSets, setUserSets, userExercises, userRoutines, setUserRoutines, setUserExercises}) {
+function RoutineCard({setCurrentRoutine, routineExercises, currentRoutine, handleUpdatedName, isInEdit, user, userSets, setUserSets, userExercises, userRoutines, setUserRoutines, setUserExercises, routineSets, setRoutineSets}) {
 
     const [routineName, setRoutineName] = useState("")
     const [exerciseSets, setExerciseSets] = useState(null)
@@ -11,16 +11,8 @@ function RoutineCard({setCurrentRoutine, routineExercises, currentRoutine, handl
     const [reps, setReps] = useState("")
     const [weight, setWeight] = useState("")
 
-    const reducedExercises = routineExercises.reduce(
-        (accumulated, currentElement) =>
-          accumulated.every(({id}) => id !== currentElement.id) //evaluates if no element already has this exercise id
-            ? [...accumulated, currentElement] //true - if none have it, add the old elements with the new one
-            : accumulated, //false, keep the items you already have
-        [routineExercises[0]]
-    );
+    const renderExercises = routineExercises.map(exercise => (
 
-    const renderExercises = reducedExercises.map(exercise => (
-        <>
             <RoutineExerciseCard
                 key={exercise.id}
                 exercise={exercise}
@@ -37,9 +29,9 @@ function RoutineCard({setCurrentRoutine, routineExercises, currentRoutine, handl
                 setReps={setReps}
                 weight={weight}
                 setWeight={setWeight}
+                routineSets={routineSets}
+                setRoutineSets={setRoutineSets}
                 />
-                <br/>
-        </>
     )) 
 
     const previousPage = () => {
@@ -73,23 +65,23 @@ function RoutineCard({setCurrentRoutine, routineExercises, currentRoutine, handl
         .then(res => res.json())
         .then(newRoutine => {
             setUserRoutines([...userRoutines, newRoutine])
-            // exerciseSets.forEach(
-            //     fetch('/exercise_sets', {
-            //     method: 'POST',
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify({routine_id: newRoutine.id, exercise_id: currentExercise.id, reps: reps, weight: weight, user_id: user.id})
-            // }))
-            // .then(res => res.json())
-            // .then(data => console.log(data)
+            exerciseSets.forEach(
+                fetch('/exercise_sets', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({routine_id: newRoutine.id, exercise_id: currentExercise.id, reps: reps, weight: weight, user_id: user.id})
+            }))
+            .then(res => res.json())
+            .then(data => console.log(data))
 
         })
     }
 
     return (
         <div>
-            {console.log(exerciseSets)}
+             {console.log(currentRoutine)}
             <Button onClick={previousPage}>Back</Button>
             { isInEdit ?
                 

@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 function ExerciseCard({exercise}) {
-    
+
     return (
         <Wrapper>
             <p>{exercise.name}</p>
@@ -16,7 +15,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 14%;
+    max-width: 20%;
     text-align: center;
     margin: 10px;
     border: 1px solid;

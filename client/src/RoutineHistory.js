@@ -9,6 +9,7 @@ function RoutineHistory({userRoutines, handleDeletedRoutine, setUserRoutines, us
     const [currentRoutine, setCurrentRoutine] = useState(null)
     const [routineExercises, setRoutineExercises] = useState(null)
     const [isInEdit, setIsInEdit] = useState(false)
+    const [routineSets, setRoutineSets] = useState(null)
 
     const history = useHistory();
 
@@ -23,6 +24,9 @@ function RoutineHistory({userRoutines, handleDeletedRoutine, setUserRoutines, us
             userExercises={userExercises}
             setIsInEdit={setIsInEdit}
             isInEdit={isInEdit}
+            routineSets={routineSets}
+            setRoutineSets={setRoutineSets}
+            currentRoutine={currentRoutine}
             />
             ))
 
@@ -36,10 +40,11 @@ function RoutineHistory({userRoutines, handleDeletedRoutine, setUserRoutines, us
 
         setCurrentRoutine(updatedRoutine)
       }
-    
+
 
     return (
         <Wrapper>
+            {/* {console.log(currentRoutine)} */}
             {currentRoutine ?
                 <RoutineCard 
                     setCurrentRoutine={setCurrentRoutine}
@@ -55,6 +60,9 @@ function RoutineHistory({userRoutines, handleDeletedRoutine, setUserRoutines, us
                     userRoutines={userRoutines}
                     setUserRoutines={setUserRoutines}
                     setUserExercises={setUserExercises}
+                    routineSets={routineSets}
+                    setRoutineSets={setRoutineSets}
+
                     />
             :
             <div>

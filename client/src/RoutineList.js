@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function RoutineList({routine, setCurrentRoutine, handleDeletedRoutine, setRoutineExercises, setIsInEdit, userExercises, routineExercises}) {
-    
+function RoutineList({routine, setCurrentRoutine, handleDeletedRoutine, setRoutineExercises, setIsInEdit, userExercises, routineExercises, routineSets, setRoutineSets, currentRoutine}) {
+
     const setRoutine = () => {
         fetch(`/routines/${routine.id}`)
         .then(res => res.json())
         .then(currentRoutine =>  {
             setCurrentRoutine(currentRoutine)
-            setRoutineExercises(currentRoutine.exercises)
+            setRoutineExercises(currentRoutine.unique_exercises)
+            setRoutineSets(currentRoutine.ordered_exercise_sets)
         })
 
         setIsInEdit(false)
@@ -19,7 +20,8 @@ function RoutineList({routine, setCurrentRoutine, handleDeletedRoutine, setRouti
         .then(res => res.json())
         .then(currentRoutine =>  {
             setCurrentRoutine(currentRoutine)
-            setRoutineExercises(currentRoutine.exercises)
+            setRoutineExercises(currentRoutine.unique_exercises)
+            setRoutineSets(currentRoutine.ordered_exercise_sets)
         })
 
         setIsInEdit(true)

@@ -1,16 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :age, :username, :password
+  attributes :id, :name, :age, :username
 
-  has_many :ordered_routines
-  has_many :exercise_sets
-  has_many :unique_exercises
-
-  def ordered_routines
-    self.object.routines.order(date: :desc)
-  end
-
-  def unique_exercises
-    self.object.exercises.uniq
-  end
-
+  has_many :routines
 end

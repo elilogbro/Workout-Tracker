@@ -2,17 +2,6 @@ User.destroy_all
 Routine.destroy_all
 Exercise.destroy_all
 WorkoutSet.destroy_all
-#By default SQL String limit 255 character 
-#Ex:- :limit => 40
-
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:
-# WorkoutSetup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
 
 u1 = User.create(name: "John White", age: 34, username: "johnbrown123", password: "JohnBrown10203")
 u2 = User.create(name: "Betty White", age: 80, username: "bettywhite10203", password: "BettyWhite123")

@@ -1,6 +1,6 @@
 class Exercise < ApplicationRecord
-    has_many :exercise_sets, dependent: :destroy
-    has_many :routines, through: :exercise_sets
+    has_many :sets, dependent: :destroy
+    belongs_to :routine
 
     validates :name, :image, :muscle_group, presence: true
 end

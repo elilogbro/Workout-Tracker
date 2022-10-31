@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 import {
     Wrapper,
     Button,
@@ -8,9 +8,11 @@ import {
     Label
 } from "../styles/SignUpStyles";
 
-function NewUserForm({setUser}) {
+function NewUserForm() {
 
-    const history = useHistory();
+    const { updateUser } = useContext(UserContext)
+    
+    const [errors, setErrors] = useState(null)
     const [formData, setFormData] = useState({
         name: "",
         age: "",
@@ -37,8 +39,17 @@ function NewUserForm({setUser}) {
             },
             body: JSON.stringify(formData)
         })
-        .then(res => res.json())
-        .then(user => setUser(user))
+        .then(res => {
+            if(res.ok) {
+                res.json().then(signedUpUser => {
+                    handleSignUp(signedUpUser)
+                })
+                setErrors(null)
+            }
+            else {
+                res.json().then(json => setErrors(json.errors))
+            }
+        })
     
         setFormData({
             name: "",
@@ -46,9 +57,11 @@ function NewUserForm({setUser}) {
             username: "",
             password: ""
         })
-    
-        history.push('/history');
-      }
+    }
+
+    const handleSignUp = (signedUpUser) => {
+        updateUser(signedUpUser)
+    }
 
     return (
         <Wrapper>
@@ -62,6 +75,13 @@ function NewUserForm({setUser}) {
                 <Label>Password</Label>
                 <Input type="password" name="password" value={formData.password} onChange={handleFormChange}/>
                 <Button type="submit">Submit</Button>
+                {errors &&
+                    Object.entries(errors).map(e =>
+                        <div key={e[0]}>
+                            {e[0] + " " + e[1]}
+                        </div>
+                    )
+                }
             </Form>
         </Wrapper>
     )

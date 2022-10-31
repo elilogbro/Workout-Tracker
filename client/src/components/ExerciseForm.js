@@ -8,7 +8,7 @@ function ExerciseForm({handleNewExercise}) {
         muscle_group: "",
         image: ""
     })
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState(null)
 
     const handleFormChange = (e) => {
         const key = e.target.name
@@ -46,7 +46,7 @@ function ExerciseForm({handleNewExercise}) {
       }
 
     const resetErrors = () => {
-        setErrors([])
+        setErrors(null)
     }
 
     return (

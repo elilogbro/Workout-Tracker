@@ -1,6 +1,5 @@
 class RoutinesController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :invalid_record_error
-    rescue_from ActiveRecord::RecordNotFound, with: :not_found_error
 
     def index
         render json: Routine.all, status: :ok
@@ -34,11 +33,8 @@ class RoutinesController < ApplicationController
         params.permit(:user_id, :name, :date, :time)
     end
 
-    def invalid_record_error(error)
-        render json: {error: error.message}, status: :unprocessable_entity
+    def invalid_record_error(invalid)
+        render json: {errors: invalid.record.errors}, status: :unprocessable_entity
     end
 
-    def not_found_error
-        render json: {error: "Routine not found"}, status: :not_found
-    end
 end

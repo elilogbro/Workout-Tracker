@@ -23,8 +23,8 @@ class ExercisesController < ApplicationController
         params.permit(:name, :image, :muscle_group)
     end
     
-    def invalid_record_error(error)
-        render json: {error: error.message}, status: :unprocessable_entity
+    def invalid_record_error(invalid)
+        render json: {errors: invalid.record.errors}, status: :unprocessable_entity
     end
 
 end

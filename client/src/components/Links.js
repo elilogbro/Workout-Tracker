@@ -1,19 +1,27 @@
-import React from 'react';
-import {NavbarContainer, NavbarLinkContainer,NavbarLink} from '../styles/NavStyle';
+import React, { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import {
+    NavbarContainer,
+    NavbarLinkContainer,
+    NavbarLink
+} from '../styles/NavStyle';
 
-function Links({user, setUser}) {
+function Links() {
+
+    const { user, updateUser, updateRoutines } = useContext(UserContext)
 
     const handleLogout = () => {
 
         fetch('/logout', {
             method: "DELETE"
         })
-        setUser({})
+        updateUser(null)
+        updateRoutines(null)
     }
-    
-    return (
-        <NavbarContainer>
-            { Object.keys(user).length === 0 ?
+
+    if (!user) {
+        return (
+            <NavbarContainer>
                 <NavbarLinkContainer>
                     <NavbarLink to="/">
                         Login
@@ -22,19 +30,23 @@ function Links({user, setUser}) {
                         Sign Up
                     </NavbarLink>
                 </NavbarLinkContainer>
-                :
-                    <NavbarLinkContainer>
-                        <NavbarLink onClick={handleLogout} to="/">
-                            Logout
-                        </NavbarLink>
-                        <NavbarLink to="/exercise-form">
-                            Create New Exercise
-                        </NavbarLink>
-                        <NavbarLink to="/history">
-                            Workout History
-                        </NavbarLink>
-                    </NavbarLinkContainer>
-                }
+            </NavbarContainer>
+        )
+    }
+    
+    return (
+        <NavbarContainer>
+            <NavbarLinkContainer>
+                <NavbarLink onClick={handleLogout} to="/">
+                    Logout
+                </NavbarLink>
+                <NavbarLink to="/exercise-form">
+                    Create New Exercise
+                </NavbarLink>
+                <NavbarLink to="/history">
+                    Workout History
+                </NavbarLink>
+            </NavbarLinkContainer>
         </NavbarContainer>
     )
 }

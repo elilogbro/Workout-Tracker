@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function ExerciseForm({handleNewExercise}) {
+function ExerciseForm() {
 
     const [formData, setFormData] = useState({
         name: "",
         muscle_group: "",
-        image: ""
+        image: "",
+        routine_id: null
     })
     const [errors, setErrors] = useState(null)
 
@@ -32,48 +33,59 @@ function ExerciseForm({handleNewExercise}) {
         .then(res => {
             if(res.ok) {
                 res.json().then(exercise => handleNewExercise(exercise))
+                setErrors(null)
             }
             else {
-              res.json().then(data => setErrors(data.error))
+              res.json().then(json => setErrors(json.errors))
             }
           })
     
         setFormData({
             name: "",
             muscle_group: "",
-            image: ""
+            image: "",
+            routine_id: null
         })
-      }
+    }
 
-    const resetErrors = () => {
-        setErrors(null)
+    const handleNewExercise = (exercise) => {
+        console.log(exercise)
     }
 
     return (
-        <Wrapper>
-             <Form onSubmit={submitNewExercise}>
-                <Label>Name</Label>
-                <Input type="text" name="name" value={formData.name} onChange={handleFormChange} onMouseOver={resetErrors}/>
-                <Label>Muscle Group</Label>
-                <Input type="text" name="muscle_group" value={formData.muscle_group} onChange={handleFormChange}/>
-                <Label>Image URL</Label>
-                <Input type="text" name="image" value={formData.image} onChange={handleFormChange}/>
-                <Button type="submit">Submit</Button>
-            </Form>
-            <Div>
-                {Object.keys(errors).length > 0 ? <div>{errors}</div> : null}
-            </Div>
-        </Wrapper>
+        <Form onSubmit={submitNewExercise}>
+            <Label>Name</Label>
+            <Input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleFormChange}
+            />
+            <Label>Muscle Group</Label>
+            <Input
+                type="text"
+                name="muscle_group"
+                value={formData.muscle_group}
+                onChange={handleFormChange}
+            />
+            <Label>Image URL</Label>
+            <Input
+                type="text"
+                name="image"
+                value={formData.image}
+                onChange={handleFormChange}
+            />
+            <Button type="submit">Submit</Button>
+            {errors &&
+                Object.entries(errors).map(e =>
+                    <div key={e[0]}>
+                        {e[0] + " " + e[1]}
+                    </div>
+                )
+            }
+        </Form>
     )
 }
-
-const Wrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    border: 1px solid;
-    padding-bottom: 12px;
-    flex-direction: column;
-`;
 
 const Form = styled.form`
     display: flex;

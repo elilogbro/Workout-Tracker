@@ -30,7 +30,7 @@ class RoutinesController < ApplicationController
     private
 
     def routine_params
-        params.permit(:user_id, :name, :date, :time)
+        params.permit(:user_id, :name)
     end
 
     def invalid_record_error(invalid)

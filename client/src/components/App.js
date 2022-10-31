@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from './Login'
-import NewUserForm from './NewUserForm'
+import SignUp from './SignUp'
 import Links from './Links'
 
 function App() {
@@ -68,7 +68,7 @@ function App() {
               />
           </Route>
           <Route path="/user-form">
-            <NewUserForm
+            <SignUp
                 setUser={setUser}
               />
           </Route>

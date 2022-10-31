@@ -1,11 +1,9 @@
 import React from 'react';
-import ExerciseList from './ExerciseList'
 import styled from 'styled-components';
 
 function RoutineForm() {
     return (
         <Wrapper>
-            <ExerciseList />
             <p>Hello</p>
         </Wrapper>
     )

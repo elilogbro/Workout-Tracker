@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavbarContainer, NavbarLinkContainer,NavbarLink} from './NavStyle';
+import {NavbarContainer, NavbarLinkContainer,NavbarLink} from '../styles/NavStyle';
 
 function Links({user, setUser}) {
 

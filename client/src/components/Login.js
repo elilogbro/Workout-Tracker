@@ -7,7 +7,7 @@ export default function Login({formData, handleLogin, handleFormChange, user, se
         setErrors([])
     }
     
-    if (errors.length > 0) {
+    if (errors) {
         return (
         <Wrapper2>
             <Form onSubmit={handleLogin}>

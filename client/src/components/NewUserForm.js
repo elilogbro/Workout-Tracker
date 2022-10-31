@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import {
+    Wrapper,
+    Button,
+    Input,
+    Form,
+    Label
+} from "../styles/SignUpStyles";
 
 function NewUserForm({setUser}) {
 
@@ -60,34 +66,5 @@ function NewUserForm({setUser}) {
         </Wrapper>
     )
 }
-
-const Wrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    border: 1px solid;
-    padding-bottom: 12px;
-`;
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-`;
-
-const Button = styled.button`
-    width: fit-content;
-    align-self: center;
-    margin-top: 1em;
-`;
-
-const Input = styled.input`
-    border-radius: 0.5em;
-    margin-top: 6px;
-`;
-
-const Label = styled.label`
-    font-family: "Verdana";
-    margin-top: 6px;
-`;
 
 export default NewUserForm;

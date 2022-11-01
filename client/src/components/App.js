@@ -4,6 +4,8 @@ import Login from './Login'
 import SignUp from './SignUp'
 import Links from './Links'
 import ExerciseForm from "./ExerciseForm";
+import RoutineHistory from "./RoutineHistory";
+import RoutineExercisesCard from "./RoutineExercisesCard";
 
 function App() {
 
@@ -19,6 +21,12 @@ function App() {
           </Route>
           <Route path="/exercise-form">
             <ExerciseForm />
+          </Route>
+          <Route path="/user/:id">
+            <RoutineHistory />
+          </Route>
+          <Route path="/routines/:id">
+            <RoutineExercisesCard />
           </Route>
         </Switch>
       </div>

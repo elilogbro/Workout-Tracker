@@ -43,7 +43,7 @@ function Links() {
                 <NavbarLink to="/exercise-form">
                     Create New Exercise
                 </NavbarLink>
-                <NavbarLink to="/history">
+                <NavbarLink to="/user/:id">
                     Workout History
                 </NavbarLink>
             </NavbarLinkContainer>

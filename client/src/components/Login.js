@@ -1,15 +1,18 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
+import { useHistory } from "react-router-dom";
 
 function Login() {
 
-    const { updateUser } = useContext(UserContext)
+    const { updateUser, user } = useContext(UserContext)
 
     const [errors, setErrors] = useState(null)
     const [formData, setFormData] = useState({
         username: "",
         password: ""
     })
+
+    const history = useHistory();
 
     const handleFormChange = (e) => {
         const key = e.target.name
@@ -41,6 +44,7 @@ function Login() {
                 res.json().then(json => setErrors(json.errors))
             }
         })
+
         setFormData({
             username: "",
             password: ""
@@ -49,6 +53,10 @@ function Login() {
 
     const onLogIn = (loggedInUser) => {
         updateUser(loggedInUser)
+    }
+
+    if (user) {
+        history.push(`/user/${user.id}`)
     }
 
     return (

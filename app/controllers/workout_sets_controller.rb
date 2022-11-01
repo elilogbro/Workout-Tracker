@@ -17,6 +17,12 @@ class WorkoutSetsController < ApplicationController
         render json: workout_set, status: :created
     end
 
+    def update
+        workout_set = WorkoutSet.find(params[:id])
+        workout_set.update!(workout_set_params)
+        render json: workout_set, status: :ok
+    end
+
     private
 
     def workout_set_params

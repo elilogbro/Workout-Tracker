@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { SelectedRoutineContext } from "../context/SelectedRoutineContext";
 import { IsInEditModeContext } from "../context/IsInEditModeContext";
 
-function RoutineNameCard({routine}) {
+function RoutineCard({routine}) {
 
     let history = useHistory();
 
@@ -39,4 +39,4 @@ function RoutineNameCard({routine}) {
     )
 }
 
-export default RoutineNameCard;
+export default RoutineCard;

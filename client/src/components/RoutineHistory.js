@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
-import RoutineNameCard from './RoutineNameCard';
+import RoutineContainer from './RoutineContainer';
 
 function RoutineHistory() {
 
@@ -13,7 +13,7 @@ function RoutineHistory() {
     }
 
     const renderRoutines = routines.map(routine =>
-        <RoutineNameCard
+        <RoutineContainer
             key={routine.id}
             routine={routine}
         />

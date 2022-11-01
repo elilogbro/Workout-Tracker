@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { IsInEditModeContext } from "../context/IsInEditModeContext";
+import Sets from './Sets';
 import {
-    Row,
     ExercisesContainer,
     Table,
     HeadersContainer,
@@ -11,6 +11,7 @@ import {
 function ExercisesCard({exercise}) {
 
     const [sets, setSets] = useState(null)
+    const [errors, setErrors] = useState(null)
 
     const { isInEditMode } = useContext(IsInEditModeContext);
 
@@ -26,17 +27,20 @@ function ExercisesCard({exercise}) {
         return <div>Loading...</div>
     }
 
-    
-    const renderSets = sets.map(set => {
-        return (
-            <Row>
-                <form key={set.id}>
-                    <input type="number" placeholder={set.weight}/>
-                    <input type="number" placeholder={set.reps}/>
-                </form>
-            </Row>
-        )
-    })
+    const onUpdateSet = (updatedSet) => {
+        const updatedSets = sets.map(set => set.id === updatedSet.id ? updatedSet : set)
+
+       setSets(updatedSets)
+    }
+
+    const renderSets = sets.map(set => 
+        <Sets
+            set={set}
+            key={set.id}
+            onUpdateSet={onUpdateSet}
+            setErrors={setErrors}
+        />
+    )
 
     return (
         <ExercisesContainer>
@@ -48,6 +52,13 @@ function ExercisesCard({exercise}) {
                 </HeadersContainer>
                 {renderSets}
             </Table>
+            {errors &&
+                Object.entries(errors).map(e =>
+                    <div key={e[0]}>
+                        {e[0] + " " + e[1]}
+                    </div>
+                )
+            }
         </ExercisesContainer>
     )
 }

@@ -5,7 +5,7 @@ import SignUp from './SignUp'
 import Links from './Links'
 import ExerciseForm from "./ExerciseForm";
 import RoutineHistory from "./RoutineHistory";
-import RoutineExercisesCard from "./RoutineExercisesCard";
+import ExercisesContainer from "./ExercisesContainer";
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
             <RoutineHistory />
           </Route>
           <Route path="/routines/:id">
-            <RoutineExercisesCard />
+            <ExercisesContainer />
           </Route>
         </Switch>
       </div>

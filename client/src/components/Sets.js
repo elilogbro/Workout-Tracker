@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { IsInEditModeContext } from "../context/IsInEditModeContext";
 import {
     Row
 } from '../styles/ExercisesCardStyles';
 
-function Sets({set, onUpdateSet, setErrors}) {
+function Sets({set, onUpdateSet}) {
+
+    const { isInEditMode } = useContext(IsInEditModeContext);
 
     const [updatedWeight, setUpdatedWeight] = useState(null)
     const [updatedReps, setUpdatedReps] = useState(null)
@@ -24,20 +27,21 @@ function Sets({set, onUpdateSet, setErrors}) {
             },
             body: JSON.stringify({weight: updatedWeight, reps: updatedReps})
         })
-        .then(res => {
-            if (res.ok) {
-                res.json().then(updatedSet => {
-                    onUpdateSet(updatedSet)
-                })
-                setShowButton(false)
-            }
-            else {
-                res.json().then(data => setErrors(data.errors))
-            }
-        })
+        .then(res => res.json())
+        .then(updatedSet => onUpdateSet(updatedSet))
+        
+        setShowButton(false)
     }
 
     const isValid = Boolean(updatedWeight && updatedReps)
+
+    if (!isInEditMode) {
+        return (
+            <div>
+                <p>hello</p>
+            </div>
+        )
+    }
 
     return (
         <Row>

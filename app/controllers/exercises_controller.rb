@@ -4,7 +4,7 @@ class ExercisesController < ApplicationController
     skip_before_action :authorize 
 
     def index
-        render json: Exercise.all, status: :ok
+        render json: Exercise.all.order(updated_at: :desc), status: :ok
     end
 
     def show
@@ -15,6 +15,12 @@ class ExercisesController < ApplicationController
     def create
         exercise = Exercise.create!(exercise_params)
         render json: exercise, status: :created
+    end
+
+    def update
+        exercise = Exercise.find(params[:id])
+        exercise.update!(exercise_params)
+        render json: exercise, status: :ok
     end
 
     private

@@ -26,7 +26,7 @@ class ExercisesController < ApplicationController
     private
 
     def exercise_params
-        params.permit(:name, :image, :muscle_group)
+        params.permit(:name, :image, :muscle_group, :routine_id)
     end
     
     def invalid_record_error(invalid)

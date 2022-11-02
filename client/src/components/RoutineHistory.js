@@ -11,7 +11,7 @@ function RoutineHistory() {
             <div>Loading...</div>
         )
     }
-
+    
     const renderRoutines = routines.map(routine =>
         <RoutineContainer
             key={routine.id}

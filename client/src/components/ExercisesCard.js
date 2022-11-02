@@ -11,7 +11,7 @@ import {
     Row
 } from '../styles/ExercisesCardStyles';
 
-function ExercisesCard({exercise}) {
+function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
 
     const { isInEditMode } = useContext(IsInEditModeContext);
     const { routineExercises, updateRoutineExercises } = useContext(SelectedRoutineContext);
@@ -21,7 +21,9 @@ function ExercisesCard({exercise}) {
     const [sets, setSets] = useState(null)
     const [isNameClicked, setIsNameClicked] = useState(false)
     const [newName, setNewName] = useState(null)
-    const [newSetsForExercise, setNewSetsForExercise] = useState([])
+    const [newSetsForExercise, setNewSetsForExercise] = useState(null)
+    const [fetchedExercise, setFetchedExercise] = useState(null)
+    const [newExercise, setNewExercise] = useState(null)
 
     useEffect(() => {
         fetch(`/exercises/${exercise.id}`)
@@ -42,7 +44,7 @@ function ExercisesCard({exercise}) {
     }
 
     const submitNewSets = (newSets) => {
-        console.log(newSets)
+        setNewSetsForExercise(newSets)
     }
 
     const renderSets = sets.map(set => 
@@ -58,6 +60,60 @@ function ExercisesCard({exercise}) {
             submitNewSets={submitNewSets}
         />
     )
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (newRoutine) {
+            // fetch exercises/newSetsForExercise[newSetsForExercise.length - 1].id
+            fetch(`/exercises/${newSetsForExercise[0].exercise_id}`)
+            // set response to fetchedExercise
+            .then(res => res.json())
+            .then(fetchedExercise => {
+                setFetchedExercise(fetchedExercise)
+                // post /exercises
+                fetch('/exercises', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    // set routine_id to newRoutine.id
+                    // set image and name to fetchedExercise.image and fetchedExercise.name
+                    body: JSON.stringify({
+                        image: fetchedExercise.image,
+                        name: fetchedExercise.name,
+                        muscle_group: fetchedExercise.muscle_group,     
+                        routine_id: newRoutine.id
+                    })
+                })
+                // set response to newExercise
+                .then(res => res.json())
+                .then(newExercise => {
+                    setNewExercise(newExercise)
+                    console.log(newExercise, newRoutine)
+                    // post newSetsForExercise.forEach(set => ) /workout_sets
+                    newSetsForExercise.forEach(set => {
+                        fetch('/workout_sets', {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            // set exercise_id to newExercise.id
+                            // set weight to set.weight and reps to set.reps
+                            body: JSON.stringify({
+                                exercise_id: newExercise.id,
+                                weight: set.weight,
+                                reps: set.reps
+                            })
+                        })
+                        .then(res => res.json())
+                        // console log created set
+                        .then(newSet => console.log(newSet))
+                    })
+                })
+            })
+        }
+    }
 
     const switchNameDisplay = () => {
         setIsNameClicked(!isNameClicked)
@@ -86,6 +142,26 @@ function ExercisesCard({exercise}) {
 
        updateRoutineExercises(updatedExercises)
     }
+    
+    const handleClick = (e) => {
+        if (!isInEditMode && !newRoutine) {
+            fetch('/routines', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({name: selectedRoutine.name, user_id: user.id})
+            })
+            .then(res => res.json())
+            .then(newRoutine => {
+                setNewRoutine(newRoutine)
+                updateRoutines([...routines, newRoutine])
+            })
+        }
+        handleSubmit(e);
+    }
+
+    const isValid = Boolean(newSetsForExercise)
 
     return (
         <ExercisesContainer>
@@ -115,9 +191,9 @@ function ExercisesCard({exercise}) {
                     <Header right="true">Reps</Header>
                 </HeadersContainer>
                 <Row>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         {renderSets}
-                        <button type="submit">Submit</button>
+                        {!isInEditMode && <button type="submit" onClick={e => handleClick(e)} disabled={!isValid}>{!newExercise ? "Submit" : "Submitted"}</button>}
                     </form>
                 </Row>
             </Table>

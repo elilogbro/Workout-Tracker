@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :workout_sets
-  resources :exercises, only: [:index, :create, :show, :update]
+  resources :exercises
   resources :routines
   post "/signup", to: "users#create"
   get "/me", to: "users#show"

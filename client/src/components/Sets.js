@@ -8,7 +8,6 @@ function Sets({
     set,
     onUpdateSet,
     exercise,
-    setNewExercise,
     sets,
     submitNewSets
 }) {
@@ -47,7 +46,9 @@ function Sets({
 
         sets.map(currentSet => currentSet.id === set.id ? set : currentSet)
         
-        submitNewSets(sets)
+        if (set.id === sets[sets.length - 1].id) {
+            submitNewSets(sets)
+        }
     }
 
     const isValid = Boolean((updatedWeight && updatedReps) || (newWeight && newReps))

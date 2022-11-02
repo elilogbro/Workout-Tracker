@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { SelectedRoutineContext } from '../context/SelectedRoutineContext';
 import ExercisesCard from "./ExercisesCard";
 
 function RoutineExercisesCard() {
 
     const { routineExercises } = useContext(SelectedRoutineContext);
+    
+    const [newRoutine, setNewRoutine] = useState(null)
 
     if (!routineExercises) {
         return <div>Loading...</div>
@@ -14,6 +16,8 @@ function RoutineExercisesCard() {
         <ExercisesCard
             exercise={exercise}
             key={exercise.id}
+            newRoutine={newRoutine}
+            setNewRoutine={setNewRoutine}
         />
     )
     

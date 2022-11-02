@@ -4,17 +4,25 @@ import {
     Row
 } from '../styles/ExercisesCardStyles';
 
-function Sets({set, onUpdateSet}) {
+function Sets({
+    set,
+    onUpdateSet,
+    exercise,
+    setNewExercise,
+    sets,
+    submitNewSets
+}) {
 
     const { isInEditMode } = useContext(IsInEditModeContext);
 
     const [updatedWeight, setUpdatedWeight] = useState(null)
     const [updatedReps, setUpdatedReps] = useState(null)
     const [selectedSet, setSelectedSet] = useState(null)
-    const [showButton, setShowButton] = useState(false)
+    const [newWeight, setNewWeight] = useState(null)
+    const [newReps, setNewReps] = useState(null)
 
-    const handleShowButton = () => {
-        setShowButton(true)
+    if (!exercise) {
+        return <div>Loading...</div>
     }
 
     const handleUpdatedSet = (e) => {
@@ -29,16 +37,37 @@ function Sets({set, onUpdateSet}) {
         })
         .then(res => res.json())
         .then(updatedSet => onUpdateSet(updatedSet))
-        
-        setShowButton(false)
     }
 
-    const isValid = Boolean(updatedWeight && updatedReps)
+    const handleNewExerciseSets = (e) => {
+        e.preventDefault();
+
+        set.weight = newWeight
+        set.reps = newReps
+
+        sets.map(currentSet => currentSet.id === set.id ? set : currentSet)
+        
+        submitNewSets(sets)
+    }
+
+    const isValid = Boolean((updatedWeight && updatedReps) || (newWeight && newReps))
 
     if (!isInEditMode) {
         return (
             <div>
-                <p>hello</p>
+                <input
+                    type="number"
+                    placeholder={set.weight}
+                    value={newWeight}
+                    onChange={e => setNewWeight(e.target.value)}
+                />
+                <input
+                    type="number"
+                    placeholder={set.reps}
+                    value={newReps}
+                    onChange={e => setNewReps(e.target.value)}
+                />
+                <button onClick={handleNewExerciseSets} disabled={!isValid}>Done</button>
             </div>
         )
     }
@@ -48,7 +77,6 @@ function Sets({set, onUpdateSet}) {
             <form
                 key={set.id}
                 onSubmit={handleUpdatedSet}
-                onClick={handleShowButton}
             >
                 <input
                     type="number"
@@ -64,9 +92,7 @@ function Sets({set, onUpdateSet}) {
                     onClick={() => setSelectedSet(set)}
                     onChange={e => setUpdatedReps(e.target.value)}
                 />
-                {showButton &&
-                    <button type="submit" disabled={!isValid}>Update Set</button>
-                }
+                <button type="submit" disabled={!isValid}>Update Set</button>
             </form>
         </Row>
     )

@@ -2,21 +2,26 @@ import React, { useState, useEffect, useContext } from 'react';
 import Sets from './Sets';
 import { IsInEditModeContext } from "../context/IsInEditModeContext";
 import { SelectedRoutineContext } from "../context/SelectedRoutineContext";
+import { UserContext } from '../context/UserContext';
 import {
     ExercisesContainer,
     Table,
     HeadersContainer,
-    Header
+    Header,
+    Row
 } from '../styles/ExercisesCardStyles';
 
 function ExercisesCard({exercise}) {
 
     const { isInEditMode } = useContext(IsInEditModeContext);
     const { routineExercises, updateRoutineExercises } = useContext(SelectedRoutineContext);
+    const { selectedRoutine } = useContext(SelectedRoutineContext);
+    const { user, updateRoutines, routines } = useContext(UserContext);
 
     const [sets, setSets] = useState(null)
     const [isNameClicked, setIsNameClicked] = useState(false)
     const [newName, setNewName] = useState(null)
+    const [newSetsForExercise, setNewSetsForExercise] = useState([])
 
     useEffect(() => {
         fetch(`/exercises/${exercise.id}`)
@@ -36,15 +41,25 @@ function ExercisesCard({exercise}) {
        setSets(updatedExercises)
     }
 
+    const submitNewSets = (newSets) => {
+        console.log(newSets)
+    }
+
     const renderSets = sets.map(set => 
         <Sets
             set={set}
             key={set.id}
             onUpdateSet={onUpdateSet}
+            exercise={exercise}
+            setNewSetsForExercise={setNewSetsForExercise}
+            newSetsForExercise={newSetsForExercise}
+            sets={sets}
+            setSets={setSets}
+            submitNewSets={submitNewSets}
         />
     )
 
-    const handleExerciseNameChange = () => {
+    const switchNameDisplay = () => {
         setIsNameClicked(!isNameClicked)
     }
 
@@ -63,7 +78,7 @@ function ExercisesCard({exercise}) {
 
         setNewName(null)
         
-        handleExerciseNameChange()
+        switchNameDisplay()
     }
 
     const handleUpdatedExercise = (updatedExercise) => {
@@ -89,7 +104,7 @@ function ExercisesCard({exercise}) {
                     // if isInEditMode is truthy but isNameClicked is falsy
                         <div>
                             <h2>{exercise.name}</h2> 
-                            <button onClick={handleExerciseNameChange}>Edit</button>
+                            <button onClick={switchNameDisplay}>Edit</button>
                         </div> :
                         // if isInEditMode is falsy
                             <h2>{exercise.name}</h2>
@@ -99,7 +114,12 @@ function ExercisesCard({exercise}) {
                     <Header left="true">Weight</Header>
                     <Header right="true">Reps</Header>
                 </HeadersContainer>
-                {renderSets}
+                <Row>
+                    <form>
+                        {renderSets}
+                        <button type="submit">Submit</button>
+                    </form>
+                </Row>
             </Table>
         </ExercisesContainer>
     )

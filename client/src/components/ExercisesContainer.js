@@ -20,6 +20,7 @@ function RoutineExercisesCard() {
     return (
         <div>
             {renderRoutineExerciseNames}
+            <button>Submit</button>
         </div>
     )
 }

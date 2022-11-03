@@ -29,7 +29,7 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
         fetch(`/exercises/${exercise.id}`)
         .then(res => res.json())
         .then(currentExercise => {
-            setSets(currentExercise.workout_sets)
+            setSets(currentExercise.ordered_workout_sets)
         })
     }, [exercise.id])
 
@@ -37,10 +37,10 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
         return <div>Loading...</div>
     }
 
-    const onUpdateSet = (updatedExercise) => {
-        const updatedExercises = sets.map(set => set.id === updatedExercise.id ? updatedExercise : set)
+    const onUpdateSet = (updatedExerciseSets) => {
+        const updatedExercisesSets = sets.map(set => set.id === updatedExerciseSets.id ? updatedExerciseSets : set)
 
-       setSets(updatedExercises)
+       setSets(updatedExercisesSets)
     }
 
     const submitNewSets = (newSets) => {
@@ -64,6 +64,7 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        console.log(newRoutine)
         if (newRoutine) {
             // fetch exercises/newSetsForExercise[newSetsForExercise.length - 1].id
             fetch(`/exercises/${newSetsForExercise[0].exercise_id}`)
@@ -71,6 +72,7 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
             .then(res => res.json())
             .then(fetchedExercise => {
                 setFetchedExercise(fetchedExercise)
+                console.log(fetchedExercise)
                 // post /exercises
                 fetch('/exercises', {
                     method: "POST",
@@ -155,7 +157,7 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
             .then(res => res.json())
             .then(newRoutine => {
                 setNewRoutine(newRoutine)
-                updateRoutines([...routines, newRoutine])
+                updateRoutines([newRoutine, ...routines])
             })
         }
         handleSubmit(e);

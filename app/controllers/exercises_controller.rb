@@ -4,7 +4,7 @@ class ExercisesController < ApplicationController
     skip_before_action :authorize 
 
     def index
-        render json: Exercise.all.order(updated_at: :desc), status: :ok
+        render json: Exercise.all.uniq { |exercise| [exercise.name] }, status: :ok
     end
 
     def show

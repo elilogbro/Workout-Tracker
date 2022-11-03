@@ -1,5 +1,9 @@
 class ExerciseSerializer < ActiveModel::Serializer
   attributes :id, :name, :image, :muscle_group, :routine_id
   
-  has_many :workout_sets
+  has_many :ordered_workout_sets
+
+  def ordered_workout_sets
+    self.object.workout_sets.order(:id)
+  end
 end

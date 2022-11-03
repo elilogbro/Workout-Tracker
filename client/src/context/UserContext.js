@@ -10,7 +10,7 @@ export const UserProvider = ({children}) => {
     const updateUser = (value) => {
         setUser(value)
         if (value) {
-            setRoutines(value.routines)
+            setRoutines(value.formatted_routines)
         }
     }
 

@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
 import { SelectedRoutineProvider } from './context/SelectedRoutineContext';
 import { IsInEditModeProvider } from './context/IsInEditModeContext';
+import { SelectedExerciseProvider } from './context/SelectedExerciseContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <UserProvider>
       <SelectedRoutineProvider>
         <IsInEditModeProvider>
-          <App />
+          <SelectedExerciseProvider>
+            <App />
+          </SelectedExerciseProvider>
         </IsInEditModeProvider>
       </SelectedRoutineProvider>
     </UserProvider>

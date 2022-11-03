@@ -6,6 +6,8 @@ import Links from './Links'
 import ExerciseForm from "./ExerciseForm";
 import RoutineHistory from "./RoutineHistory";
 import ExercisesContainer from "./ExercisesContainer";
+import ExercisesList from "./ExercisesList";
+import ExerciseDetails from "./ExerciseDetails";
 
 function App() {
 
@@ -27,6 +29,12 @@ function App() {
           </Route>
           <Route path="/routines/:id">
             <ExercisesContainer />
+          </Route>
+          <Route path="/exercises">
+            <ExercisesList />
+          </Route>
+          <Route path="/exercise/:id">
+            <ExerciseDetails />
           </Route>
         </Switch>
       </div>

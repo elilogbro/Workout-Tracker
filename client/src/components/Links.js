@@ -46,6 +46,9 @@ function Links() {
                 <NavbarLink to="/user/:id">
                     Workout History
                 </NavbarLink>
+                <NavbarLink to="/exercises">
+                    Create New Routine
+                </NavbarLink>
             </NavbarLinkContainer>
         </NavbarContainer>
     )

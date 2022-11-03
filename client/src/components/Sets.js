@@ -19,6 +19,8 @@ function Sets({
     const [selectedSet, setSelectedSet] = useState(null)
     const [newWeight, setNewWeight] = useState(null)
     const [newReps, setNewReps] = useState(null)
+    const [updatedSet, setUpdatedSet] = useState(null)
+    const [isClicked, setIsClicked] = useState(false)
 
     if (!exercise) {
         return <div>Loading...</div>
@@ -35,11 +37,16 @@ function Sets({
             body: JSON.stringify({weight: updatedWeight, reps: updatedReps})
         })
         .then(res => res.json())
-        .then(updatedSet => onUpdateSet(updatedSet))
+        .then(updatedSet => {
+            onUpdateSet(updatedSet)
+            setUpdatedSet(updatedSet)
+        })
     }
 
     const handleNewExerciseSets = (e) => {
         e.preventDefault();
+
+        setIsClicked(true)
 
         set.weight = newWeight
         set.reps = newReps
@@ -68,7 +75,7 @@ function Sets({
                     value={newReps}
                     onChange={e => setNewReps(e.target.value)}
                 />
-                <button onClick={handleNewExerciseSets} disabled={!isValid}>Done</button>
+                <button onClick={handleNewExerciseSets} disabled={!isValid || isClicked}>{isClicked ? "Logged" : "Done"}</button>
             </div>
         )
     }
@@ -77,13 +84,13 @@ function Sets({
         <Row>
             <form
                 key={set.id}
-                onSubmit={handleUpdatedSet}
             >
                 <input
                     type="number"
                     placeholder={set.weight}
                     value={updatedWeight}
                     onClick={() => setSelectedSet(set)}
+                    onKeyPress={() => setSelectedSet(set)}
                     onChange={e => setUpdatedWeight(e.target.value)}
                 />
                 <input
@@ -91,9 +98,16 @@ function Sets({
                     placeholder={set.reps}
                     value={updatedReps}
                     onClick={() => setSelectedSet(set)}
+                    onKeyPress={() => setSelectedSet(set)}
                     onChange={e => setUpdatedReps(e.target.value)}
                 />
-                <button type="submit" disabled={!isValid}>Update Set</button>
+                <button
+                    type="submit"
+                    disabled={!isValid}
+                    onClick={handleUpdatedSet}
+                >
+                    {updatedSet ? "Updated!" : "Update"}
+                </button>
             </form>
         </Row>
     )

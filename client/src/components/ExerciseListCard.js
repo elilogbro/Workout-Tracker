@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Card, P } from '../styles/ExerciseListCardStyles';
 import { SelectedExerciseContext } from '../context/SelectedExerciseContext';
 
-function ExerciseListCard({exercise}) {
+function ExerciseListCard({exercise, handleAddToNewRoutine}) {
 
     let history = useHistory();
 
@@ -18,7 +18,7 @@ function ExerciseListCard({exercise}) {
     return (
         <Card>
             <P onClick={showExerciseDetails}>{exercise.name}</P>
-            <button>Add to Routine</button>
+            <button onClick={() => handleAddToNewRoutine(exercise)}>Add to Routine</button>
         </Card>
     )
 }

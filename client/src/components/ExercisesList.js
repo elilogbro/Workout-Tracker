@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ExerciseListCard from './ExerciseListCard';
-
+import NewExercisesCard from './NewExercisesCard';
 import { ExercisesContainer, Wrapper } from '../styles/ExercisesListStyles';
 
 function ExercisesList() {
@@ -21,8 +21,17 @@ function ExercisesList() {
         setExercisesForNewRoutine([...exercisesForNewRoutine, exercise])
     }
 
+    const deleteExerciseFromRoutine = (currentExercise) => {
+        const remainingExercises = exercisesForNewRoutine.filter(exercise => exercise.id !== currentExercise.id)
+        setExercisesForNewRoutine(remainingExercises)
+    }
+
     const renderNewRoutine = exercisesForNewRoutine.length > 0 && exercisesForNewRoutine.map(exercise =>
-        <ExercisesCard key={exercise.id} exercise={exercise} />
+        <NewExercisesCard
+            key={exercise.id}
+            exercise={exercise}
+            deleteExerciseFromRoutine={deleteExerciseFromRoutine}
+        />
     )
 
     const renderExercises = exercises.map(exercise =>

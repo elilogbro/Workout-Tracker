@@ -12,8 +12,6 @@ function Input({handleDeletedSet, set}) {
 
         set.weight = weight;
         set.reps = reps;
-
-        console.log(set)
     }
 
     const isValid = Boolean(weight && reps)
@@ -30,7 +28,12 @@ function Input({handleDeletedSet, set}) {
                 value={reps}
                 onChange={e => setReps(e.target.value)}
             />
-            <button onClick={updateWeightAndReps} disabled={!isValid || isClicked}>{isClicked ? "Saved" : "Done"}</button>
+            <button
+                onClick={updateWeightAndReps}
+                disabled={!isValid || isClicked}
+            >
+                {isClicked ? "Saved" : "Done"}
+            </button>
             <button onClick={(e) => handleDeletedSet(set, e)}>Delete Set</button>
         </div>
     )

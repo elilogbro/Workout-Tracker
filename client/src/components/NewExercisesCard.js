@@ -31,8 +31,6 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine}) {
         const remainingSets = sets.filter(set => set.id !== currentSet.id)
         setSets(remainingSets)
     }
-    
-    console.log(sets)
 
     const renderInputs = sets.length > 0 && sets.map(set =>
         <Input
@@ -53,7 +51,8 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine}) {
                         </HeadersContainer>
                         <Row>
                             <form>
-                                {renderInputs}                                
+                                {renderInputs}
+                                <button type="submit">Submit</button>                            
                             </form>
                         </Row>
                     </Table>

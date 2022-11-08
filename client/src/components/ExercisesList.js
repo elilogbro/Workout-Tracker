@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ExerciseListCard from './ExerciseListCard';
 import NewExercisesCard from './NewExercisesCard';
+import { UserContext } from '../context/UserContext';
 import { ExercisesContainer, Wrapper } from '../styles/ExercisesListStyles';
 
 function ExercisesList() {
     const [exercises, setExercises] = useState(null)
     const [exercisesForNewRoutine, setExercisesForNewRoutine] = useState([])
+    const [routineName, setRoutineName] = useState(null)
+    const [newRoutine, setNewRoutine] = useState(null)
+
+    const { user } = useContext(UserContext)
 
     useEffect(() => {
         fetch('/exercises')
@@ -42,14 +47,40 @@ function ExercisesList() {
         />
     )
 
+    const createNewRoutine = (e) => {
+        e.preventDefault();
+
+        fetch('/routines', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: routineName,
+                user_id: user.id
+            })
+        })
+        .then(res => res.json())
+        .then(newRoutine => setNewRoutine(newRoutine))
+    }
+
+    const isValid = Boolean(routineName)
+
     return (
         <Wrapper>
             <ExercisesContainer>
                 {renderExercises}
             </ExercisesContainer>
             <div>
-                <h2>Current Routine</h2>
-                {exercisesForNewRoutine.length === 0 && <div>Add exercises!</div>}
+                <form onSubmit={createNewRoutine}>
+                    <label>What is the name of your routine?</label>
+                    <input
+                        value={routineName}
+                        onChange={e => setRoutineName(e.target.value)}
+                    />
+                    <button type="submit" disabled={!isValid}>Submit</button>
+                </form>
+                {(exercisesForNewRoutine.length === 0 && newRoutine) && <div>Add exercises!</div>}
                 {renderNewRoutine}
             </div>
         </Wrapper>

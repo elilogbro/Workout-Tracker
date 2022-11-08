@@ -8,6 +8,7 @@ import {
 } from "../styles/ExercisesCardStyles";
 
 function NewExercisesCard({exercise, deleteExerciseFromRoutine}) {
+    const [sets, setSets] = useState([])
     const [count, setCount] = useState(0)
 
     if (!exercise) {
@@ -15,18 +16,36 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine}) {
     }
 
     const handleClick = () => {
+        setSets([...sets, {
+            id: count,
+            weight: "",
+            reps: ""
+        }])
+
         setCount(count + 1)
     }
 
-    const renderInputs = Array.apply(null, { length: count }).map((e, i) => (
-        <Input key={i}/>
-    ))
+    const handleDeletedSet = (currentSet, e) => {
+        e.preventDefault();
+
+        const remainingSets = sets.filter(set => set.id !== currentSet.id)
+        setSets(remainingSets)
+    }
+    
+    console.log(sets)
+
+    const renderInputs = sets.length > 0 && sets.map(set =>
+        <Input
+            set={set}
+            handleDeletedSet={handleDeletedSet}
+        />
+    )
 
     return (
         <div>
             <h2>{exercise.name}</h2>
             <button onClick={handleClick}>Add Set</button>
-            {count > 0 &&
+            {sets.length > 0 &&
                     <Table>
                         <HeadersContainer>
                             <Header left="true">Weight</Header>

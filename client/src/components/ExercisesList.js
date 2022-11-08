@@ -10,7 +10,7 @@ function ExercisesList() {
     const [routineName, setRoutineName] = useState(null)
     const [newRoutine, setNewRoutine] = useState(null)
 
-    const { user } = useContext(UserContext)
+    const { user, updateRoutines, routines } = useContext(UserContext)
 
     useEffect(() => {
         fetch('/exercises')
@@ -36,6 +36,7 @@ function ExercisesList() {
             key={exercise.id}
             exercise={exercise}
             deleteExerciseFromRoutine={deleteExerciseFromRoutine}
+            newRoutine={newRoutine}
         />
     )
 
@@ -61,7 +62,10 @@ function ExercisesList() {
             })
         })
         .then(res => res.json())
-        .then(newRoutine => setNewRoutine(newRoutine))
+        .then(newRoutine => {
+            setNewRoutine(newRoutine)
+            updateRoutines([newRoutine, ...routines])
+        })
     }
 
     const isValid = Boolean(routineName)
@@ -76,7 +80,7 @@ function ExercisesList() {
             <div>
                 {!newRoutine &&
                     <form onSubmit={createNewRoutine}>
-                        <label>What is the name of your routine?</label>
+                        <label>What is the name of the routine?</label>
                         <input
                             value={routineName}
                             onChange={e => setRoutineName(e.target.value)}

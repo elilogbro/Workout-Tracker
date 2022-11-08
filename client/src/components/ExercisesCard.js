@@ -64,7 +64,6 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(newRoutine)
         if (newRoutine) {
             // fetch exercises/newSetsForExercise[newSetsForExercise.length - 1].id
             fetch(`/exercises/${newSetsForExercise[0].exercise_id}`)
@@ -92,7 +91,6 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
                 .then(res => res.json())
                 .then(newExercise => {
                     setNewExercise(newExercise)
-                    console.log(newExercise, newRoutine)
                     // post newSetsForExercise.forEach(set => ) /workout_sets
                     newSetsForExercise.forEach(set => {
                         fetch('/workout_sets', {

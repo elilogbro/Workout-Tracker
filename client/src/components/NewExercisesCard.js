@@ -7,9 +7,10 @@ import {
     Header
 } from "../styles/ExercisesCardStyles";
 
-function NewExercisesCard({exercise, deleteExerciseFromRoutine}) {
+function NewExercisesCard({exercise, deleteExerciseFromRoutine, newRoutine}) {
     const [sets, setSets] = useState([])
     const [count, setCount] = useState(0)
+    const [isSubmitted, setIsSubmitted] = useState(false)
 
     if (!exercise) {
         return <div>Loading...</div>
@@ -39,6 +40,43 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine}) {
         />
     )
 
+    const handleExerciseAndSetsSubmit = (e) => {
+        e.preventDefault();
+
+        fetch('/exercises', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: exercise.name,
+                image: exercise.image,
+                muscle_group: exercise.muscle_group,
+                routine_id: newRoutine.id
+            })
+        })
+        .then(res => res.json())
+        .then(newExercise => {
+            sets.forEach(set =>
+                fetch('/workout_sets', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        exercise_id: newExercise.id,
+                        weight: set.weight,
+                        reps: set.reps
+                    })
+                })
+            )
+        })
+
+        setIsSubmitted(true)
+
+        console.log(sets, exercise, newRoutine)
+    }
+
     return (
         <div>
             <h2>{exercise.name}</h2>
@@ -50,9 +88,12 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine}) {
                             <Header right="true">Reps</Header>
                         </HeadersContainer>
                         <Row>
-                            <form>
+                            <form onSubmit={handleExerciseAndSetsSubmit}>
                                 {renderInputs}
-                                <button type="submit">Submit</button>                            
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitted}    
+                                >{isSubmitted ? "Submitted" : "Submit Sets"}</button>                            
                             </form>
                         </Row>
                     </Table>

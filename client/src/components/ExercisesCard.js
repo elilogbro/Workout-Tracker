@@ -182,7 +182,7 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
                     // if isInEditMode is truthy but isNameClicked is falsy
                         <div>
                             <h2>{exercise.name}</h2> 
-                            <button onClick={switchNameDisplay}>Edit</button>
+                            <button onClick={switchNameDisplay}>Edit Name</button>
                         </div> :
                         // if isInEditMode is falsy
                             <h2>{exercise.name}</h2>

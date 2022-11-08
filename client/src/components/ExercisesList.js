@@ -89,6 +89,7 @@ function ExercisesList() {
                     </form>
                 }
                 {(exercisesForNewRoutine.length === 0 && newRoutine) && <div>Add exercises!</div>}
+                {newRoutine && <h1>{newRoutine.name}</h1>}
                 {renderNewRoutine}
             </div>
         </Wrapper>

@@ -1,25 +1,46 @@
 import React, { useState } from 'react';
+import Input from './Input';
+import {
+    Row,
+    Table,
+    HeadersContainer,
+    Header
+} from "../styles/ExercisesCardStyles";
 
 function NewExercisesCard({exercise, deleteExerciseFromRoutine}) {
-    let [count, setCount] = useState([])
+    const [count, setCount] = useState(0)
 
     if (!exercise) {
         return <div>Loading...</div>
     }
 
-    const addInput = () => {
-        setCount([...count, 1])
+    const handleClick = () => {
+        setCount(count + 1)
     }
 
-    const renderCount = count.length > 0 && count.map(x => <input />)
+    const renderInputs = Array.apply(null, { length: count }).map((e, i) => (
+        <Input key={i}/>
+    ))
 
     return (
-        <form>
+        <div>
             <h2>{exercise.name}</h2>
-            <button onClick={addInput}>Add Set</button>
-            {renderCount}
+            <button onClick={handleClick}>Add Set</button>
+            {count > 0 &&
+                    <Table>
+                        <HeadersContainer>
+                            <Header left="true">Weight</Header>
+                            <Header right="true">Reps</Header>
+                        </HeadersContainer>
+                        <Row>
+                            <form>
+                                {renderInputs}                                
+                            </form>
+                        </Row>
+                    </Table>
+            }
             <button onClick={() => deleteExerciseFromRoutine(exercise)}>Delete from Routine</button>
-        </form>
+        </div>
     )
 }
 

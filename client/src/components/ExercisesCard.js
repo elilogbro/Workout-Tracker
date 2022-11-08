@@ -71,7 +71,6 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
             .then(res => res.json())
             .then(fetchedExercise => {
                 setFetchedExercise(fetchedExercise)
-                console.log(fetchedExercise)
                 // post /exercises
                 fetch('/exercises', {
                     method: "POST",

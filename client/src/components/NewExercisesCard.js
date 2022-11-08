@@ -73,8 +73,6 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine, newRoutine}) {
         })
 
         setIsSubmitted(true)
-
-        console.log(sets, exercise, newRoutine)
     }
 
     return (

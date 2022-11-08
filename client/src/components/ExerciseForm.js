@@ -32,7 +32,6 @@ function ExerciseForm() {
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(exercise => handleNewExercise(exercise))
                 setErrors(null)
             }
             else {
@@ -46,10 +45,6 @@ function ExerciseForm() {
             image: "",
             routine_id: null
         })
-    }
-
-    const handleNewExercise = (exercise) => {
-        console.log(exercise)
     }
 
     return (

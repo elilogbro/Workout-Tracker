@@ -44,7 +44,6 @@ function RoutineCard({routine}) {
         updateRoutines(remainingRoutines)
     }
 
-    console.log(routine)
     return (
         <div>
             <h2>{routine.name}</h2>

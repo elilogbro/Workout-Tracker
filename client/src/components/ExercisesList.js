@@ -68,18 +68,22 @@ function ExercisesList() {
 
     return (
         <Wrapper>
-            <ExercisesContainer>
-                {renderExercises}
-            </ExercisesContainer>
+            {newRoutine &&
+                <ExercisesContainer>
+                    {renderExercises}
+                </ExercisesContainer>
+            }
             <div>
-                <form onSubmit={createNewRoutine}>
-                    <label>What is the name of your routine?</label>
-                    <input
-                        value={routineName}
-                        onChange={e => setRoutineName(e.target.value)}
-                    />
-                    <button type="submit" disabled={!isValid}>Submit</button>
-                </form>
+                {!newRoutine &&
+                    <form onSubmit={createNewRoutine}>
+                        <label>What is the name of your routine?</label>
+                        <input
+                            value={routineName}
+                            onChange={e => setRoutineName(e.target.value)}
+                        />
+                        <button type="submit" disabled={!isValid}>Submit</button>
+                    </form>
+                }
                 {(exercisesForNewRoutine.length === 0 && newRoutine) && <div>Add exercises!</div>}
                 {renderNewRoutine}
             </div>

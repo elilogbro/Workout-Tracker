@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import RoutineContainer from './RoutineContainer';
+import {
+    Container
+} from '../styles/RoutineHistoryStyles';
 
 function RoutineHistory() {
 
@@ -20,9 +23,9 @@ function RoutineHistory() {
     )
 
     return (
-        <div>
+        <Container>
             {renderRoutines}
-        </div>
+        </Container>
     )
 }
 

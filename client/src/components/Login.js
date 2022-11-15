@@ -1,6 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useHistory } from "react-router-dom";
+import {
+    Form,
+    InputContainer,
+    CenterContainer,
+    Input,
+    Label,
+    Button
+} from '../styles/LoginStyles';
 
 function Login() {
 
@@ -60,28 +68,34 @@ function Login() {
     }
 
     return (
-        <form onSubmit={handleLogin}>
-            <label>Username</label>
-            <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleFormChange}    
-            />
-            <label>Password</label>
-            <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleFormChange}    
-            />
-            <button type="submit">Login</button>
+        <Form onSubmit={handleLogin}>
+            <CenterContainer>
+                <InputContainer>
+                    <Label>Username</Label>
+                    <Input
+                        type="text"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleFormChange}    
+                    />
+                </InputContainer>
+                <InputContainer>
+                    <Label>Password</Label>
+                    <Input
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleFormChange}    
+                    />
+                </InputContainer>
+            </CenterContainer>
+            <Button type="submit">Login</Button>
             {errors &&
                 <div>
                     {errors}
                 </div>
             }
-        </form>
+        </Form>
     )
 }
 

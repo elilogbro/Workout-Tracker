@@ -8,36 +8,41 @@ import RoutineHistory from "./RoutineHistory";
 import ExercisesContainer from "./ExercisesContainer";
 import ExercisesList from "./ExercisesList";
 import ExerciseDetails from "./ExerciseDetails";
+import {
+  Container
+} from '../styles/AppStyles';
 
 function App() {
 
   return (
-      <div className="App">
-        <Links />
-        <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/user-form">
-            <SignUp />
-          </Route>
-          <Route path="/exercise-form">
-            <ExerciseForm />
-          </Route>
-          <Route path="/user/:id">
-            <RoutineHistory />
-          </Route>
-          <Route path="/routines/:id">
-            <ExercisesContainer />
-          </Route>
-          <Route path="/exercises">
-            <ExercisesList />
-          </Route>
-          <Route path="/exercise/:id">
-            <ExerciseDetails />
-          </Route>
-        </Switch>
-      </div>
+    <div>
+      <Links />
+      <Container>
+          <Switch>
+            <Route exact path="/">
+              <Login />
+            </Route>
+            <Route path="/user-form">
+              <SignUp />
+            </Route>
+            <Route path="/exercise-form">
+              <ExerciseForm />
+            </Route>
+            <Route path="/user/:id">
+              <RoutineHistory />
+            </Route>
+            <Route path="/routines/:id">
+              <ExercisesContainer />
+            </Route>
+            <Route path="/exercises">
+              <ExercisesList />
+            </Route>
+            <Route path="/exercise/:id">
+              <ExerciseDetails />
+            </Route>
+          </Switch>
+      </Container>
+    </div>
   );
 }
 

@@ -3,6 +3,10 @@ import { useHistory } from "react-router-dom";
 import { SelectedRoutineContext } from "../context/SelectedRoutineContext";
 import { IsInEditModeContext } from "../context/IsInEditModeContext";
 import { UserContext } from '../context/UserContext';
+import {
+    Container,
+    Button
+} from '../styles/RoutineContainerStyles';
 
 function RoutineCard({routine}) {
 
@@ -45,13 +49,13 @@ function RoutineCard({routine}) {
     }
 
     return (
-        <div>
+        <Container>
             <h2>{routine.name}</h2>
             <p>{routine.formatted_created_at}</p>
-            <button onClick={pushToEditExercisesCard}>Edit</button>
-            <button onClick={pushToEditExercisesCard}>Repeat</button>
-            <button onClick={handleDeleteRoutine}>Delete</button>
-        </div>
+            <Button onClick={pushToEditExercisesCard}>Edit</Button>
+            <Button onClick={pushToEditExercisesCard}>Repeat</Button>
+            <Button onClick={handleDeleteRoutine}>Delete</Button>
+        </Container>
     )
 }
 

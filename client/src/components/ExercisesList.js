@@ -2,7 +2,19 @@ import React, { useEffect, useState, useContext } from 'react';
 import ExerciseListCard from './ExerciseListCard';
 import NewExercisesCard from './NewExercisesCard';
 import { UserContext } from '../context/UserContext';
-import { ExercisesContainer, Wrapper } from '../styles/ExercisesListStyles';
+import {
+    ExercisesContainer,
+    Wrapper,
+    Input,
+    Form,
+    Label,
+    Button,
+    NewExercisesContainer,
+    Header,
+    CreateRoutineContainer
+} from '../styles/ExercisesListStyles';
+import { AiOutlineArrowRight } from 'react-icons/ai';
+import ClockLoader from 'react-spinners/ClockLoader';
 
 function ExercisesList() {
     const [exercises, setExercises] = useState(null)
@@ -19,7 +31,7 @@ function ExercisesList() {
     }, [])
 
     if (!exercises) {
-        return <div>Loading...</div>
+        return <ClockLoader color="#1de9b6"/>
     }
 
     const handleAddToNewRoutine = (exercise) => {
@@ -71,28 +83,33 @@ function ExercisesList() {
     const isValid = Boolean(routineName)
 
     return (
-        <Wrapper>
-            {newRoutine &&
-                <ExercisesContainer>
-                    {renderExercises}
-                </ExercisesContainer>
-            }
-            <div>
+        <div>
+            <CreateRoutineContainer>
                 {!newRoutine &&
-                    <form onSubmit={createNewRoutine}>
-                        <label>What is the name of the routine?</label>
-                        <input
-                            value={routineName}
-                            onChange={e => setRoutineName(e.target.value)}
-                        />
-                        <button type="submit" disabled={!isValid}>Submit</button>
-                    </form>
+                    <Form onSubmit={createNewRoutine}>
+                        <Label>What is the name of your new routine?</Label>
+                        <div>
+                            <Input
+                                value={routineName}
+                                onChange={e => setRoutineName(e.target.value)}
+                            />
+                            <Button type="submit" disabled={!isValid}><AiOutlineArrowRight /></Button>
+                        </div>
+                    </Form>
                 }
-                {(exercisesForNewRoutine.length === 0 && newRoutine) && <div>Add exercises!</div>}
-                {newRoutine && <h1>{newRoutine.name}</h1>}
-                {renderNewRoutine}
-            </div>
-        </Wrapper>
+            </CreateRoutineContainer>
+            <Wrapper>
+                {newRoutine &&
+                    <ExercisesContainer>
+                        {renderExercises}
+                    </ExercisesContainer>
+                }
+                    <NewExercisesContainer>
+                        {newRoutine && <Header>{newRoutine.name}</Header>}
+                        {renderNewRoutine}
+                    </NewExercisesContainer>
+            </Wrapper>
+        </div>
     )
 }
 

@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import {
+    Input,
+    Form,
+    Button,
+    Label
+} from '../styles/ExerciseFormStyles';
 
 function ExerciseForm() {
 
@@ -81,40 +86,5 @@ function ExerciseForm() {
         </Form>
     )
 }
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-`;
-
-const Button = styled.button`
-    width: fit-content;
-    align-self: center;
-    margin-top: 1em;
-    cursor: pointer;
-    border: 1px solid;
-    border-radius: 0.5em;
-`;
-
-const Input = styled.input`
-    border-radius: 0.5em;
-    margin-top: 6px;
-    width: 200px;
-    align-self: center;
-`;
-
-const Label = styled.label`
-    font-family: "Verdana";
-    margin-top: 6px;
-`;
-
-const Div = styled.div`
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  color: red;
-  padding-top: 10px;
-`;
 
 export default ExerciseForm;

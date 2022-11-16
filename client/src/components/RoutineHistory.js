@@ -2,17 +2,17 @@ import React, { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import RoutineContainer from './RoutineContainer';
 import {
+    Routines,
     Container
 } from '../styles/RoutineHistoryStyles';
+import ClockLoader from 'react-spinners/ClockLoader';
 
 function RoutineHistory() {
 
     const { routines } = useContext(UserContext);
 
     if (!routines) {
-        return (
-            <div>Loading...</div>
-        )
+        return <ClockLoader color="#1de9b6"/>
     }
     
     const renderRoutines = routines.map(routine =>
@@ -24,7 +24,10 @@ function RoutineHistory() {
 
     return (
         <Container>
-            {renderRoutines}
+            <h1>Workout History</h1>
+            <Routines>
+                {renderRoutines}
+            </Routines>
         </Container>
     )
 }

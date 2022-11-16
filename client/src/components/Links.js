@@ -37,13 +37,13 @@ function Links() {
     return (
         <NavbarContainer>
             <NavbarLinkContainer>
-                <NavbarLink onClick={handleLogout} to="/">
+                <NavbarLink right="true" onClick={handleLogout} to="/">
                     Logout
                 </NavbarLink>
                 <NavbarLink to="/exercise-form">
                     Create New Exercise
                 </NavbarLink>
-                <NavbarLink to="/user/:id">
+                <NavbarLink to={`/user/${user.id}`}>
                     Workout History
                 </NavbarLink>
                 <NavbarLink to="/exercises">

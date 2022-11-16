@@ -8,8 +8,14 @@ import {
     Table,
     HeadersContainer,
     Header,
-    Row
+    Row,
+    Form,
+    Button,
+    NameContainer,
+    SecondaryButton,
+    Input
 } from '../styles/ExercisesCardStyles';
+import ClockLoader from 'react-spinners/ClockLoader';
 
 function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
 
@@ -34,7 +40,7 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
     }, [exercise.id])
 
     if (!sets) {
-        return <div>Loading...</div>
+        return <ClockLoader color="#1de9b6" />
     }
 
     const onUpdateSet = (updatedExerciseSets) => {
@@ -167,20 +173,20 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
             {isInEditMode ?
                 isNameClicked ?
                 // if both are truthy
-                    <form onSubmit={submitNewName}>
-                        <input
+                    <Form onSubmit={submitNewName}>
+                        <Input
                             type="text"
                             placeholder={exercise.name}
                             value={newName}
                             onChange={e => setNewName(e.target.value)}
                         />
-                        <button type="submit">Done</button>
-                    </form> :
+                        <SecondaryButton type="submit">Done</SecondaryButton>
+                    </Form> :
                     // if isInEditMode is truthy but isNameClicked is falsy
-                        <div>
+                        <NameContainer>
                             <h2>{exercise.name}</h2> 
-                            <button onClick={switchNameDisplay}>Edit Name</button>
-                        </div> :
+                            <SecondaryButton onClick={switchNameDisplay}>Edit Name</SecondaryButton>
+                        </NameContainer> :
                         // if isInEditMode is falsy
                             <h2>{exercise.name}</h2>
             }
@@ -190,10 +196,10 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
                     <Header right="true">Reps</Header>
                 </HeadersContainer>
                 <Row>
-                    <form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         {renderSets}
-                        {!isInEditMode && <button type="submit" onClick={e => handleClick(e)} disabled={!isValid}>{!newExercise ? "Submit" : "Submitted"}</button>}
-                    </form>
+                        {!isInEditMode && <Button type="submit" onClick={e => handleClick(e)} disabled={!isValid}>{!newExercise ? "Submit" : "Submitted"}</Button>}
+                    </Form>
                 </Row>
             </Table>
         </ExercisesContainer>

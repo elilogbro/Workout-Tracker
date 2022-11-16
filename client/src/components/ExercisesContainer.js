@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { SelectedRoutineContext } from '../context/SelectedRoutineContext';
 import ExercisesCard from "./ExercisesCard";
+import ClockLoader from 'react-spinners/ClockLoader';
 
 function RoutineExercisesCard() {
 
@@ -9,7 +10,7 @@ function RoutineExercisesCard() {
     const [newRoutine, setNewRoutine] = useState(null)
 
     if (!routineExercises) {
-        return <div>Loading...</div>
+        return <ClockLoader color="#1de9b6"/>
     }
 
     const renderRoutineExerciseNames = routineExercises.map(exercise =>

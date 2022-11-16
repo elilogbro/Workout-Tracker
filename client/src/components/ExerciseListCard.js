@@ -1,24 +1,16 @@
-import React, { useContext } from 'react';
-import { useHistory } from "react-router-dom";
-import { Card, P } from '../styles/ExerciseListCardStyles';
-import { SelectedExerciseContext } from '../context/SelectedExerciseContext';
+import React from 'react';
+import {
+    Card,
+    P,
+    Button
+} from '../styles/ExerciseListCardStyles';
 
 function ExerciseListCard({exercise, handleAddToNewRoutine}) {
 
-    let history = useHistory();
-
-    const { updateSelectedExercise } = useContext(SelectedExerciseContext);
-
-    const showExerciseDetails = () => {
-        updateSelectedExercise(exercise)
-
-        history.push(`/exercise/${exercise.id}`)
-    }
-
     return (
         <Card>
-            <P onClick={showExerciseDetails}>{exercise.name}</P>
-            <button onClick={() => handleAddToNewRoutine(exercise)}>Add to Routine</button>
+            <P>{exercise.name}</P>
+            <Button onClick={() => handleAddToNewRoutine(exercise)}>Add to Routine</Button>
         </Card>
     )
 }

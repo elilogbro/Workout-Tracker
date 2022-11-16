@@ -26,4 +26,5 @@ export const NavbarLink = styled(Link)`
     &:active{
         color: #20B2AA;
     }
+    flex: ${props => props.right && 'auto'};
 `;

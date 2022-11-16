@@ -54,7 +54,7 @@ function RoutineCard({routine}) {
             <p>{routine.formatted_created_at}</p>
             <Button onClick={pushToEditExercisesCard}>Edit</Button>
             <Button onClick={pushToEditExercisesCard}>Repeat</Button>
-            <Button onClick={handleDeleteRoutine}>Delete</Button>
+            <Button red="true" onClick={handleDeleteRoutine}>Delete</Button>
         </Container>
     )
 }

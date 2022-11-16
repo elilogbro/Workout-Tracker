@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { IsInEditModeContext } from "../context/IsInEditModeContext";
-import {
-    Row
-} from '../styles/ExercisesCardStyles';
+import { Row } from '../styles/ExercisesCardStyles';
+import { Input, Form, Container, Button } from '../styles/SetsStyles';
+import ClockLoader from 'react-spinners/ClockLoader';
 
 function Sets({
     set,
@@ -23,7 +23,7 @@ function Sets({
     const [isClicked, setIsClicked] = useState(false)
 
     if (!exercise) {
-        return <div>Loading...</div>
+        return <ClockLoader color="#1de9b6"/>
     }
 
     const handleUpdatedSet = (e) => {
@@ -62,30 +62,30 @@ function Sets({
 
     if (!isInEditMode) {
         return (
-            <div>
-                <input
+            <Container>
+                <Input
                     type="number"
                     placeholder={set.weight}
                     value={newWeight}
                     onChange={e => setNewWeight(e.target.value)}
                 />
-                <input
+                <Input
                     type="number"
                     placeholder={set.reps}
                     value={newReps}
                     onChange={e => setNewReps(e.target.value)}
                 />
-                <button onClick={handleNewExerciseSets} disabled={!isValid || isClicked}>{isClicked ? "Logged" : "Done"}</button>
-            </div>
+                <Button onClick={handleNewExerciseSets} disabled={!isValid || isClicked}>{isClicked ? "✓" : "Done"}</Button>
+            </Container>
         )
     }
 
     return (
         <Row>
-            <form
+            <Form
                 key={set.id}
             >
-                <input
+                <Input
                     type="number"
                     placeholder={set.weight}
                     value={updatedWeight}
@@ -93,7 +93,7 @@ function Sets({
                     onKeyPress={() => setSelectedSet(set)}
                     onChange={e => setUpdatedWeight(e.target.value)}
                 />
-                <input
+                <Input
                     type="number"
                     placeholder={set.reps}
                     value={updatedReps}
@@ -101,14 +101,14 @@ function Sets({
                     onKeyPress={() => setSelectedSet(set)}
                     onChange={e => setUpdatedReps(e.target.value)}
                 />
-                <button
+                <Button
                     type="submit"
                     disabled={!isValid}
                     onClick={handleUpdatedSet}
                 >
                     {updatedSet ? "Updated!" : "Update"}
-                </button>
-            </form>
+                </Button>
+            </Form>
         </Row>
     )
 }

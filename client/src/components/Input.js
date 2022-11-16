@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import {
+    Field,
+    Button,
+} from '../styles/InputStyles';
 
 function Input({handleDeletedSet, set}) {
     const [weight, setWeight] = useState(null);
@@ -18,23 +22,23 @@ function Input({handleDeletedSet, set}) {
 
     return (
         <div>
-            <input
+            <Field
                 type="number"
                 value={weight}
                 onChange={e => setWeight(e.target.value)}
             />
-            <input
+            <Field
                 type="number"
                 value={reps}
                 onChange={e => setReps(e.target.value)}
             />
-            <button
+            <Button
                 onClick={updateWeightAndReps}
                 disabled={!isValid || isClicked}
             >
                 {isClicked ? "Saved" : "Done"}
-            </button>
-            <button onClick={(e) => handleDeletedSet(set, e)}>Delete Set</button>
+            </Button>
+            <Button red="true" onClick={(e) => handleDeletedSet(set, e)}>Remove</Button>
         </div>
     )
 }

@@ -22,6 +22,7 @@ export const Button = styled.button`
     padding: 0 20px;
     :hover {
         background-color: #0000001a;
+        box-shadow: ${props => props.red && '0 0 0 0 #fff, 0 0 0 3px red'};
     }
     margin: 2px;
 `;

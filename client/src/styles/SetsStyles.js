@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Input = styled.input`    
     box-shadow: inset #abacaf 0 0 0 2px;
@@ -8,9 +8,12 @@ export const Input = styled.input`
     appearance: none;
     position: relative;
     border-radius: 3px;
+    padding: 9px 12px;
+    line-height: 1.4;
     color: rgb(0, 0, 0);
     font-size: 16px;
     font-weight: 400;
+    max-width: 100px;
     transition: all .2s ease;
     :hover{
         box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 2px;
@@ -20,19 +23,16 @@ export const Input = styled.input`
         outline: 0;
         box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 3px;
     }
-    align-self: center;
-    margin-bottom: 2vh;
-    padding: 2vh;
 `;
 
 export const Form = styled.form`
     display: flex;
-    flex-direction: column;
-    text-align: center;
     justify-content: flex-end;
     padding: 2px;
-    width: 30vw;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: fit-content;
+`;
+
+export const Container = styled(Form)`
 `;
 
 export const Button = styled.button`
@@ -42,24 +42,16 @@ export const Button = styled.button`
     font-weight: 600;
     border-radius: 3px;
     padding: 12px 24px;
-    margin: 4px;
     border: 0;
     color: #3a4149;
     background: #e7ebee;
     font-size: 14px;
     :hover {
         transition: all .1s ease;
-        box-shadow: ${props => props.red ? '0 0 0 0 #fff, 0 0 0 3px red' : '0 0 0 0 #fff, 0 0 0 3px #1de9b6'};
+        box-shadow: 0 0 0 0 #fff, 0 0 0 3px #1de9b6;
     }
     :disabled {
         opacity: 0.5;
         box-shadow: none;
     }
-    align-self: center;
-    margin-top: 4vh;
-    margin-bottom: 2vh;
-`;
-
-export const Label = styled.label`
-    padding: 2vh;
 `;

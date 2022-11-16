@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import Input from './Input';
 import {
     Row,
-    Table,
-    HeadersContainer,
-    Header
+    Table
 } from "../styles/ExercisesCardStyles";
+import {
+    Button,
+    Container,
+    ButtonContainer,
+    Header,
+    HeadersContainer
+} from '../styles/NewExercisesCardStyles';
+import ClockLoader from 'react-spinners/ClockLoader';
 
 function NewExercisesCard({exercise, deleteExerciseFromRoutine, newRoutine}) {
     const [sets, setSets] = useState([])
@@ -13,7 +19,7 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine, newRoutine}) {
     const [isSubmitted, setIsSubmitted] = useState(false)
 
     if (!exercise) {
-        return <div>Loading...</div>
+        return <ClockLoader color="#1de9b6"/>
     }
 
     const handleClick = () => {
@@ -76,9 +82,12 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine, newRoutine}) {
     }
 
     return (
-        <div>
+        <Container>
             <h2>{exercise.name}</h2>
-            <button onClick={handleClick}>Add Set</button>
+            <ButtonContainer>
+                <Button onClick={handleClick}>Add Set</Button>
+                <Button red="true" onClick={() => deleteExerciseFromRoutine(exercise)}>Delete from Routine</Button>
+            </ButtonContainer>
             {sets.length > 0 &&
                     <Table>
                         <HeadersContainer>
@@ -88,16 +97,15 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine, newRoutine}) {
                         <Row>
                             <form onSubmit={handleExerciseAndSetsSubmit}>
                                 {renderInputs}
-                                <button
+                                <Button
                                     type="submit"
                                     disabled={isSubmitted}    
-                                >{isSubmitted ? "Submitted" : "Submit Sets"}</button>                            
+                                >{isSubmitted ? "Submitted" : "Submit Sets"}</Button>                            
                             </form>
                         </Row>
                     </Table>
             }
-            <button onClick={() => deleteExerciseFromRoutine(exercise)}>Delete from Routine</button>
-        </div>
+        </Container>
     )
 }
 

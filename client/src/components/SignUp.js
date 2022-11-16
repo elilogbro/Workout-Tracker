@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import {
-    Wrapper,
-    Button,
     Input,
     Form,
+    Button,
     Label
 } from "../styles/SignUpStyles";
 
@@ -64,26 +63,24 @@ function NewUserForm() {
     }
 
     return (
-        <Wrapper>
-            <Form onSubmit={handleNewAccount}>
-                <Label>Name</Label>
-                <Input type="text" name="name" value={formData.name} onChange={handleFormChange}/>
-                <Label>Age</Label>
-                <Input type="number" name="age" value={formData.age} onChange={handleFormChange}/>
-                <Label>Username</Label>
-                <Input type="text" name="username" value={formData.username} onChange={handleFormChange}/>
-                <Label>Password</Label>
-                <Input type="password" name="password" value={formData.password} onChange={handleFormChange}/>
-                <Button type="submit">Submit</Button>
-                {errors &&
-                    Object.entries(errors).map(e =>
-                        <div key={e[0]}>
-                            {e[0] + " " + e[1]}
-                        </div>
-                    )
-                }
-            </Form>
-        </Wrapper>
+        <Form onSubmit={handleNewAccount}>
+            <Label>Name</Label>
+            <Input type="text" name="name" value={formData.name} onChange={handleFormChange}/>
+            <Label>Age</Label>
+            <Input type="number" name="age" value={formData.age} onChange={handleFormChange}/>
+            <Label>Username</Label>
+            <Input type="text" name="username" value={formData.username} onChange={handleFormChange}/>
+            <Label>Password</Label>
+            <Input type="password" name="password" value={formData.password} onChange={handleFormChange}/>
+            <Button type="submit">Submit</Button>
+            {errors &&
+                Object.entries(errors).map(e =>
+                    <div key={e[0]}>
+                        {e[0] + " " + e[1]}
+                    </div>
+                )
+            }
+        </Form>
     )
 }
 

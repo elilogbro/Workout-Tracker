@@ -35,13 +35,14 @@ function NewExercisesCard({exercise, deleteExerciseFromRoutine, newRoutine}) {
     const handleDeletedSet = (currentSet, e) => {
         e.preventDefault();
 
-        const remainingSets = sets.filter(set => set.id !== currentSet.id)
-        setSets(remainingSets)
+        let filteredSets = sets.filter(set => set.id !== currentSet.id)
+        setSets(filteredSets)
     }
 
     const renderInputs = sets.length > 0 && sets.map(set =>
         <Input
             set={set}
+            key={set.id}
             handleDeletedSet={handleDeletedSet}
         />
     )

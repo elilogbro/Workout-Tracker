@@ -4,7 +4,7 @@ class WorkoutSetsController < ApplicationController
     skip_before_action :authorize 
 
     def index
-        render json: WorkoutSet.all.order(:created_at), status: :ok
+        render json: WorkoutSet.all, status: :ok
     end
 
     def show

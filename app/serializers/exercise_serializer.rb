@@ -4,6 +4,6 @@ class ExerciseSerializer < ActiveModel::Serializer
   has_many :ordered_workout_sets
 
   def ordered_workout_sets
-    self.object.workout_sets.order(:id)
+    self.object.workout_sets.order(:weight)
   end
 end

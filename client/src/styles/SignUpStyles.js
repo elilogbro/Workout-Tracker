@@ -33,6 +33,7 @@ export const Form = styled.form`
     padding: 2px;
     width: 30vw;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: solid black;
 `;
 
 export const Button = styled.button`

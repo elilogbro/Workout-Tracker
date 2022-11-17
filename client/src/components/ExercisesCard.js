@@ -198,7 +198,15 @@ function ExercisesCard({exercise, newRoutine, setNewRoutine}) {
                 <Row>
                     <Form onSubmit={handleSubmit}>
                         {renderSets}
-                        {!isInEditMode && <Button type="submit" onClick={e => handleClick(e)} disabled={!isValid}>{!newExercise ? "Submit" : "Submitted"}</Button>}
+                        {!isInEditMode &&
+                            <Button
+                                type="submit"
+                                onClick={e => handleClick(e)}
+                                disabled={!isValid}
+                            >
+                                {!newExercise ? "Submit" : "Submitted"}
+                            </Button>
+                        }
                     </Form>
                 </Row>
             </Table>

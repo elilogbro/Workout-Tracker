@@ -12,4 +12,7 @@ export const Routines = styled.div`
 
 export const Container = styled.div`
     text-align-last: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;

@@ -22,24 +22,24 @@ function Links() {
     if (!user) {
         return (
             <NavbarContainer>
-                <NavbarLinkContainer>
-                    <NavbarLink to="/">
-                        Login
-                    </NavbarLink>
-                    <NavbarLink to="/user-form">
-                        Sign Up
-                    </NavbarLink>
-                </NavbarLinkContainer>
+                <NavbarLink to="/">
+                    Login
+                </NavbarLink>
+                <NavbarLink to="/user-form">
+                    Sign Up
+                </NavbarLink>
             </NavbarContainer>
         )
     }
-    
+
     return (
         <NavbarContainer>
-            <NavbarLinkContainer>
-                <NavbarLink right="true" onClick={handleLogout} to="/">
+            <NavbarLinkContainer left="true">
+                <NavbarLink onClick={handleLogout} to="/">
                     Logout
                 </NavbarLink>
+            </NavbarLinkContainer>
+            <NavbarLinkContainer>
                 <NavbarLink to="/exercise-form">
                     Create New Exercise
                 </NavbarLink>

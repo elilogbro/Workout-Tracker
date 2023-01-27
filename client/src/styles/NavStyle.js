@@ -6,8 +6,9 @@ export const NavbarContainer = styled.nav`
     height: fit-content;
     background-color: #1de9b6;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     font-family: monospace;
+    justify-content: space-between;
 `;
 
 export const NavbarLinkContainer = styled.div`
@@ -27,5 +28,4 @@ export const NavbarLink = styled(Link)`
     &:active{
         color: #20B2AA;
     }
-    flex: ${props => props.right && 'auto'};
 `;

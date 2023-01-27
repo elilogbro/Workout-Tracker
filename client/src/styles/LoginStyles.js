@@ -5,8 +5,10 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30vw;
-    height: 60vh;
+    justify-content: center;
+    width: 50vw;
+    padding: 4vw;
+    height: fit-content;
     border: solid black;
 `;
 
